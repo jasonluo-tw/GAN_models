@@ -114,10 +114,10 @@ class DCGAN():
         inter_imgs = real_imgs + (epsi * diff)
 
         with tf.GradientTape() as t:
-            t.watch(inter)
-            pred = fun(inter)
+            t.watch(inter_imgs)
+            pred = fun(inter_imgs)
 
-        grad = t.gradient(pred, inter)
+        grad = t.gradient(pred, inter_imgs)
         slopes = tf.sqrt(tf.reduce_sum(tf.square(grad), axis=[1, 2, 3]))
         gp = tf.reduce_mean((slopes - 1.)**2)
 
